@@ -9,9 +9,62 @@
 </head>
 <body>
 
-<h1>AI Code Quality Assistant</h1>
-<p>Analyze your code with Gemini AI</p>
+<div class="container">
+
+    <h1>AI Code Quality Assistant</h1>
+
+    <p class="subtitle">
+        Analyze your code using Gemini AI
+    </p>
+
+    <div class="form-container">
+
+        <select id="language">
+            <option value="python">Python</option>
+            <option value="javascript">JavaScript</option>
+            <option value="java">Java</option>
+            <option value="csharp">C#</option>
+        </select>
+
+        <textarea
+                id="code-input"
+                placeholder="Paste your code here..."
+        ></textarea>
+
+        <button id="analyze-btn">
+            Analyze Code
+        </button>
+
+    </div>
+
+    <div class="results-container">
+
+        <h2>Analysis Results</h2>
+
+        <div class="result-card">
+            <h3>Quality Score</h3>
+            <p id="score">-</p>
+        </div>
+
+        <div class="result-card">
+            <h3>Issues Found</h3>
+            <ul id="issues-list">
+                <li>No analysis yet</li>
+            </ul>
+        </div>
+
+        <div class="result-card">
+            <h3>Suggestions</h3>
+            <ul id="suggestions-list">
+                <li>No suggestions yet</li>
+            </ul>
+        </div>
+
+    </div>
+
+</div>
 
 <script src="{{ url_for('static', filename='script.js') }}"></script>
+
 </body>
 </html>
