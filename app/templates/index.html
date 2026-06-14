@@ -6,6 +6,8 @@
     <title>AI Code Quality Assistant</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Prism.js CSS for syntax highlighting (Light Theme) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -22,22 +24,28 @@
         <select id="language">
             <option value="python">Python</option>
             <option value="javascript">JavaScript</option>
+            <option value="typescript">TypeScript</option>
             <option value="java">Java</option>
             <option value="csharp">C#</option>
         </select>
 
-        <textarea
-                id="code-input"
-                placeholder="Wklej kod do analizy..."
-        ></textarea>
+        <!-- Sekcja wejściowa ostylowana tak samo jak wynikowa -->
+        <div class="result-card">
+            <h3>Wklej tu swój kod</h3>
+            <div class="input-code-container">
+                <pre aria-hidden="true"><code id="input-highlight" class="language-python"></code></pre>
+                <textarea id="code-input" placeholder="Wklej kod do analizy..." spellcheck="false"></textarea>
+            </div>
+        </div>
 
-        <button id="analyze-btn">
-            Analizuj Kod i Generuj Testy
-        </button>
-
-        <button id="example-btn" class="secondary-btn">
-            Wczytaj Przykład
-        </button>
+        <div class="action-buttons">
+            <button id="analyze-btn">
+                Analizuj Kod i Generuj Testy
+            </button>
+            <button id="example-btn" class="secondary-btn">
+                Wczytaj Przykład
+            </button>
+        </div>
 
     </div>
 
@@ -76,7 +84,7 @@
         <div class="result-card">
             <h3>Poprawiona Wersja Kodu</h3>
             <div class="corrected-code-container">
-                <pre id="corrected-code">No corrected code yet</pre>
+                <pre><code id="corrected-code" class="language-python">No corrected code yet</code></pre>
                 <button id="copy-btn" class="copy-button" style="display: none;">
                     Copy to Clipboard
                 </button>
@@ -87,8 +95,15 @@
 
 </div>
 
+<!-- Prism.js JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
 </html>
-
