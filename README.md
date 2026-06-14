@@ -62,7 +62,7 @@ pip install -r requirements.txt
 
 ### 4. Konfiguracja zmiennych środowiskowych
 ```bash
-cp .env.example .env
+cp .env .env
 # Edytuj .env i dodaj klucz API od Google Gemini
 ```
 

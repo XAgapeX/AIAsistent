@@ -61,6 +61,7 @@ analyzeButton.addEventListener("click", async () => {
         suggestionsList.appendChild(li);
     });
 
+    // Wyświetlanie poprawionego kodu
     const correctedCodeElement = document.getElementById("corrected-code");
     if (data.corrected_code) {
         correctedCodeElement.textContent = data.corrected_code;
@@ -72,6 +73,7 @@ analyzeButton.addEventListener("click", async () => {
 
 });
 
+// Przycisk Copy to Clipboard
 copyButton.addEventListener("click", () => {
     const correctedCode = document.getElementById("corrected-code").textContent;
     navigator.clipboard.writeText(correctedCode).then(() => {
@@ -85,9 +87,12 @@ copyButton.addEventListener("click", () => {
     });
 });
 
+// Przycisk Load Example Code
 const exampleButton = document.getElementById("example-btn");
 exampleButton.addEventListener("click", () => {
-    const exampleCode = `password = "1234"
+    const exampleCode = `# Przykład: System logowania użytkowników
+
+password = "1234"
 
 def login(username, password_input):
     if username == "admin" and password_input == password:
@@ -95,14 +100,15 @@ def login(username, password_input):
         return True
     return False
 
+# Testowanie
 users = ["John", "Kate", "Mike"]
 for i in range(len(users)):
     print(users[i])
 
+# Zalogowanie
 login("admin", "1234")`;
 
     document.getElementById("code-input").value = exampleCode;
     document.getElementById("language").value = "python";
     analyzeButton.focus();
 });
-
