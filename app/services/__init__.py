@@ -3,18 +3,15 @@ import json
 import time
 import google.generativeai as genai
 from google.api_core.exceptions import ResourceExhausted
-
 from dotenv import load_dotenv
 
 load_dotenv()
 
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-
-model = genai.GenerativeModel("gemini-3.0-flash")
+model = genai.GenerativeModel("gemini-2.5-flash")
 
 
 def analyze_code_with_gemini(code, language):
-
     prompt = f"""
 You are a CODE QUALITY EXPERT. Rate code fairly based on SECURITY and STRUCTURE.
 
@@ -64,18 +61,14 @@ CODE:
     for attempt in range(max_retries):
         try:
             response = model.generate_content(prompt)
-
             cleaned_response = response.text.strip()
-
             cleaned_response = cleaned_response.replace("```json", "")
             cleaned_response = cleaned_response.replace("```", "")
             cleaned_response = cleaned_response.strip()
 
             json_start = cleaned_response.find("{")
             json_end = cleaned_response.rfind("}") + 1
-
             cleaned_response = cleaned_response[json_start:json_end]
-
 
             result = json.loads(cleaned_response)
             result = normalize_quality_score(result)
@@ -103,7 +96,6 @@ CODE:
 
 
 def normalize_quality_score(data):
-    """Ensure quality_score is between 0 and 10"""
     if isinstance(data, dict):
         if "quality_score" in data:
             score = data["quality_score"]
@@ -115,7 +107,6 @@ def normalize_quality_score(data):
 
 
 def remove_comments_from_code(data):
-    """Remove Python and JavaScript comments from corrected_code"""
     if isinstance(data, dict) and "corrected_code" in data:
         code = data["corrected_code"]
         lines = code.split('\n')
@@ -141,11 +132,8 @@ def remove_comments_from_code(data):
 
                 if line or not stripped:
                     cleaned_lines.append(line)
-            elif stripped:
-                pass
 
         data["corrected_code"] = '\n'.join(cleaned_lines).strip()
 
     return data
-
 
