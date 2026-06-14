@@ -11,10 +11,10 @@
 
 <div class="container">
 
-    <h1>AI Code Quality Assistant</h1>
+    <h1>AI QA Tester Assistant</h1>
 
     <p class="subtitle">
-        Analyze your code using Gemini AI
+        Automatyczne wsparcie testera oprogramowania dzięki Gemini AI
     </p>
 
     <div class="form-container">
@@ -28,46 +28,53 @@
 
         <textarea
                 id="code-input"
-                placeholder="Paste your code here..."
+                placeholder="Wklej kod do analizy..."
         ></textarea>
 
         <button id="analyze-btn">
-            Analyze Code
+            Analizuj Kod i Generuj Testy
         </button>
 
         <button id="example-btn" class="secondary-btn">
-            Load Example Code
+            Wczytaj Przykład
         </button>
 
     </div>
 
     <div class="results-container">
 
-        <h2>Analysis Results</h2>
+        <h2>Wyniki Analizy QA</h2>
 
         <div id="error-message" class="error-message" style="display: none;"></div>
 
         <div class="result-card">
-            <h3>Quality Score</h3>
+            <h3>Ocena Jakości (0-10)</h3>
             <p id="score">-</p>
         </div>
 
         <div class="result-card">
-            <h3>Issues Found</h3>
+            <h3>Wykryte Błędy i Ryzyka</h3>
             <ul id="issues-list">
-                <li>No analysis yet</li>
+                <li>Brak analizy</li>
             </ul>
         </div>
 
         <div class="result-card">
-            <h3>Suggestions</h3>
+            <h3>Sugestie Poprawy</h3>
             <ul id="suggestions-list">
-                <li>No suggestions yet</li>
+                <li>Brak sugestii</li>
             </ul>
         </div>
 
         <div class="result-card">
-            <h3>Corrected Code</h3>
+            <h3>Scenariusze Testowe</h3>
+            <ul id="test-scenarios-list">
+                <li>Brak scenariuszy</li>
+            </ul>
+        </div>
+
+        <div class="result-card">
+            <h3>Poprawiona Wersja Kodu</h3>
             <div class="corrected-code-container">
                 <pre id="corrected-code">No corrected code yet</pre>
                 <button id="copy-btn" class="copy-button" style="display: none;">

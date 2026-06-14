@@ -12,7 +12,7 @@ analyzeButton.addEventListener("click", async () => {
     }
 
     analyzeButton.disabled = true;
-    analyzeButton.textContent = "Analyzing...";
+    analyzeButton.textContent = "Analizuję...";
 
     const response = await fetch("/api/analyze", {
         method: "POST",
@@ -26,7 +26,7 @@ analyzeButton.addEventListener("click", async () => {
     });
 
     analyzeButton.disabled = false;
-    analyzeButton.textContent = "Analyze Code";
+    analyzeButton.textContent = "Analizuj Kod i Generuj Testy";
 
     const data = await response.json();
 
@@ -61,13 +61,26 @@ analyzeButton.addEventListener("click", async () => {
         suggestionsList.appendChild(li);
     });
 
+    const scenariosList = document.getElementById("test-scenarios-list");
+    scenariosList.innerHTML = "";
+
+    if (data.test_scenarios && data.test_scenarios.length > 0) {
+        data.test_scenarios.forEach(scenario => {
+            const li = document.createElement("li");
+            li.textContent = scenario;
+            scenariosList.appendChild(li);
+        });
+    } else {
+        scenariosList.innerHTML = "<li>Brak scenariuszy testowych</li>";
+    }
+
     // Wyświetlanie poprawionego kodu
     const correctedCodeElement = document.getElementById("corrected-code");
     if (data.corrected_code) {
         correctedCodeElement.textContent = data.corrected_code;
         copyButton.style.display = "block";
     } else {
-        correctedCodeElement.textContent = "No corrected code available";
+        correctedCodeElement.textContent = "Brak poprawionej wersji";
         copyButton.style.display = "none";
     }
 
@@ -78,12 +91,12 @@ copyButton.addEventListener("click", () => {
     const correctedCode = document.getElementById("corrected-code").textContent;
     navigator.clipboard.writeText(correctedCode).then(() => {
         const originalText = copyButton.textContent;
-        copyButton.textContent = "Copied!";
+        copyButton.textContent = "Skopiowano!";
         setTimeout(() => {
             copyButton.textContent = originalText;
         }, 2000);
     }).catch(err => {
-        alert("Failed to copy code");
+        alert("Błąd kopiowania");
     });
 });
 
